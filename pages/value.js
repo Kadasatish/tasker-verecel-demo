@@ -1,9 +1,14 @@
 export default function handler(req, res) {
   if (req.method === 'POST') {
     const { amount } = req.body;
-    console.log("Received:", amount);
-    res.status(200).json({ message: `Received ₹${amount}` });
+
+    if (!amount) {
+      return res.status(400).json({ error: 'Amount not provided' });
+    }
+
+    return res.status(200).json({ message: `Received ₹${amount}` });
   } else {
-    res.status(405).json({ message: 'Method Not Allowed' });
+    res.setHeader('Allow', ['POST']);
+    return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
