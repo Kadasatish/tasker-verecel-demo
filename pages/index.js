@@ -17,4 +17,4 @@ export default function Home() {
       <h1>Tasker Value: {val}</h1>
     </main>
   );
-}
+    }
